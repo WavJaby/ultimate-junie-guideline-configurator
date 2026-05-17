@@ -13,7 +13,7 @@
 
 import { cpSync, mkdirSync, readdirSync, rmSync } from 'fs';
 import { exists } from 'fs/promises';
-import { join } from 'path';
+import { join, relative } from 'path';
 
 // Parse Configuration & CLI Arguments
 const DEFAULT_MODEL = 'gemini-3-1-pro';
@@ -37,6 +37,7 @@ if (projectFlagIdx !== -1) {
 }
 
 const debug = args.includes('-debug');
+const withLinks = args.includes('-links');
 
 if (projectPaths.length > 0 && targetFlagIdx === -1) {
     console.error('Error: -project flag requires -target to be specified.');
@@ -60,7 +61,17 @@ async function read(path: string): Promise<string | null> {
     if (!(await Bun.file(path).exists())) { console.warn(`⚠ Missing: ${path}`); return null; }
     const content = (await Bun.file(path).text()).trim();
     // Strip YAML frontmatter (--- ... ---) before inlining
-    return content.replace(/^---[\s\S]*?---\n?/, '').trim();
+    let text = content.replace(/^---[\s\S]*?---\n?/, '').trim();
+    
+    if (withLinks) {
+        const match = text.match(/^(#+)\s+(.*)$/m);
+        if (match) {
+            const relPath = relative(configRoot, path).replace(/\\/g, '/');
+            text = text.replace(/^(#+)\s+(.*)$/m, `$1 [$2](./${relPath})`);
+        }
+    }
+    
+    return text;
 }
 
 async function merge(paths: string[]): Promise<string> {
@@ -177,7 +188,7 @@ async function buildAcp() {
 
         if (await exists(sharedSkillsDir)) {
             if (await exists(agentSkillsDir)) rmSync(agentSkillsDir, { recursive: true });
-            mkdirSync(agentSkillsDir, { recursive: true });
+            // mkdirSync(agentSkillsDir, { recursive: true });
             cpSync(sharedSkillsDir, agentSkillsDir, { recursive: true });
             console.log(`  Skills: ${readdirSync(sharedSkillsDir).length} skill(s) → ${label}/.agents/skills/`);
         }
