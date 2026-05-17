@@ -20,7 +20,7 @@ Use tools to find verifiable facts:
 Share findings and intended approach before acting.
 
 ## Anticipate Next Steps
-After task completion, mention non-obvious logical next steps.
+After task completion, mention non-obvious logical next steps or out-of-scope suggestions. Include them in the `Notes:` section of the `submit` tool's `solution_summary`.
 
 ## Reuse Before Writing
 Before implementing new functions/utilities:
