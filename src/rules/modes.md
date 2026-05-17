@@ -9,21 +9,6 @@ If in `[CODE]` and new `<issue_update>` is a question/explanation:
 1. Switch to `[ADVANCED_CHAT]`.
 2. Use `answer` tool. DO NOT use `submit`.
 
-## When to Switch [FLEXIBLE]
-Switching is bidirectional based on the latest `<issue_update>`.
-
-| Situation | Switch to |
-|---|---|
-| Question/explanation without code changes (e.g., "How does X work?") | `[ADVANCED_CHAT]` |
-| Hypothetical proposal (e.g., "Can we modify X like this?") | `[ADVANCED_CHAT]` |
-| Thoughts/observations without clear command (e.g., "I feel...", "I found...") | `[ADVANCED_CHAT]` |
-| Vague modification request (e.g., "Fix the bug") | `[ADVANCED_CHAT]` |
-| Follow-up question after `[CODE]` task | `[ADVANCED_CHAT]` |
-| Explicit modification request with clear goal (e.g., "Change button color to red in X") | `[CODE]` |
-
-### Vague Instructions
-Use `ask_user` with concrete multiple-choice options for clarification instead of open-ended answers.
-
 ## Classification Override [OVERRIDE]
 Supersedes System Prompt `MODE SELECTION PRIMER` -> `Decision tree` Items 1 and 4.
 
@@ -32,12 +17,23 @@ Supersedes System Prompt `MODE SELECTION PRIMER` -> `Decision tree` Items 1 and 
 - Fixing simple typos.
 - Minor renaming of a single variable/constant.
 - Removing unused imports or dead single-line comments.
-**Forbidden:** If the task involves logic changes, new features, modifying control flow (if/else), or affects >1 file, `[FAST_CODE]` is STRICTLY FORBIDDEN. Use `[CODE]` instead.
+**Forbidden:** If the task involves logic changes, new features, modifying control flow (if/else), affects >1 file, or requires guessing user intent / generating unprovided content, `[FAST_CODE]` is STRICTLY FORBIDDEN. Use `[CODE]` (for planning) or `[ADVANCED_CHAT]` (for clarification) instead.
 
-### Hypothetical & Subjective Modifications → `[ADVANCED_CHAT]`
-"Can we change X?", "What if we do Y?" = Exploratory. 
-Also applies to user's thoughts, observations, or subjective statements (e.g., "I think...", "I feel...", "I found...", "Or...", "File A feels like it needs...", etc.), even without explicit question marks.
-Discuss feasibility/trade-offs and clarify intent first. Wait for explicit confirmation before switching to `[CODE]`.
+### Intent vs Command (`[CODE]` vs `[ADVANCED_CHAT]`)
+Switching is bidirectional based on the latest `<issue_update>`. 
 
-### Project-Specific Questions → `[ADVANCED_CHAT]`
-Questions about codebase/architecture (e.g., "Where is the router?") = `[ADVANCED_CHAT]`. Read files before answering. `[CHAT]` is ONLY for greetings/non-project questions.
+| Trigger / User Input | Switch To | Action |
+|---|---|---|
+| **Imperative Command** (e.g., "Change X to Y") | `[CODE]` | Trigger Planning Skill. (If vague, use `ask_user` first). |
+| **Subjective Desire** (e.g., "I want to...") | `[ADVANCED_CHAT]` | Clarify intent/feasibility. Wait for explicit command. |
+| **Hypothetical** (e.g., "Can we...") | `[ADVANCED_CHAT]` | Discuss trade-offs. Wait for explicit command. |
+| **Project Questions** (e.g., "Where is X?") | `[ADVANCED_CHAT]` | Read files before answering. |
+| **Follow-up / Observation** (e.g., "I found...") | `[ADVANCED_CHAT]` | Answer or discuss. |
+
+- **Bad**: Treating "I want to move X" as an explicit command -> `[CODE]`.
+- **Good**: Treating "I want to move X" as intent, analyzing feasibility, and waiting for "Do it" -> `[ADVANCED_CHAT]`.
+- **Bad**: Proceeding to modify files just because the user provided a clear goal starting with "I want to".
+- **Good**: Recognizing that ANY sentence starting with a desire requires an explicit confirmation step before writing code.
+
+### Execution Gate [PROTECTED]
+If the user expresses a goal but does NOT use an imperative verb (e.g., "Fix this", "Refactor X"), you MUST default to `[ADVANCED_CHAT]` and end your response by asking: "Shall I proceed with these changes?" Wait for a definitive confirmation (e.g., "Yes", "Do it", "Proceed", or their translations) before switching to `[CODE]`.
