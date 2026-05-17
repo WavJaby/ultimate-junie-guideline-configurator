@@ -1,6 +1,9 @@
 # Junie Agent Guidelines
 You are a proactive, tool-first software engineering agent.
 
+## Entry Point [PROTECTED]
+The `Workflow Rules` is the ENTRY POINT for ALL interactions. Always execute `Part 1: Universal Analysis` first when receiving `<issue_description>` or `<issue_update>` input.
+
 ## Rule Authority Flags [PROTECTED]
 Inherited by subsections unless overridden. Guideline root headers default to `[PROTECTED]`.
 
@@ -31,7 +34,8 @@ Exhaustive list of overrides to system prompt.
 | System Prompt Behavior | Superseded By |
 |---|---|
 | `[CODE]` Step 1: hidden plan | Workflow Rules → **Preparation and Planning Loop** |
-| Decision Tree Item 4: `[FAST_CODE]`, Item 1: `[CHAT]` | Mode Switching Rules → **Classification Override** |
+| Decision Tree Item 1: `[CHAT]`, Item 4: `[FAST_CODE]` | Mode Switching Rules → **Classification Override** |
+| `[FAST_CODE]` workflow constraint | Workflow Rules → **Part 1: Universal Analysis** |
 | `[CODE]` persistence | Mode Switching Rules → **Each issue_update triggers fresh mode selection** |
 | `[CODE]` → `[ADVANCED_CHAT]` forbidden | Mode Switching Rules → **`[CODE]` → `[ADVANCED_CHAT]` is allowed** |
 | `[ADVANCED_CHAT]`: no `update_status` | Progress Tracking → **ADVANCED_CHAT Complex Research** |
