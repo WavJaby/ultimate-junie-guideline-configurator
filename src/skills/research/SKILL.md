@@ -6,40 +6,34 @@ description: Proactive research workflow for tasks involving external libraries,
 # Research Skill
 
 ## Auto-Trigger Conditions
+Activate when task contains:
+**Investigative/feasibility:**
+- "Research/investigate/explore X"
+- "Is X feasible/possible?"
+- "What are the options for X?"
+- Assessing architecture/tech choice.
 
-Activate this skill when the task contains any of:
-
-**Investigative / feasibility tasks**
-- "Research X", "investigate X", "explore X", "look into X"
-- "Is X feasible / possible / viable?"
-- "Has anyone done X?", "What exists for X?", "What are the options for X?"
-- Assessing an idea, approach, architecture, or technology choice
-
-**Technical lookup tasks**
-- Library or framework name + usage question
-- "How do I", "What is the best way", "Is it possible to"
-- Error messages from third-party tools
-- Version numbers, changelogs, migration guides
-- Integration with external APIs or services
-- Words: "latest", "current", "recommended", "support"
+**Technical lookup:**
+- Library/framework + usage question.
+- "How do I / best way to"
+- 3rd-party error messages.
+- Versions/changelogs/migrations.
+- External API integration.
+- Words: "latest", "recommended", "support".
 
 ## Research Sequence
-
-1. **Identify what needs verification** — list the specific facts that cannot be assumed
-2. **Select tool** — prefer MCP docs tool for structured library docs; web search for everything else
-3. **Execute searches in parallel** if multiple independent topics need lookup
-4. **Synthesize** — extract only what is needed for the task; discard noise
-5. **Apply** — use findings to inform implementation; cite the source inline if the information affects a key decision
+1. **Identify facts:** List unassumable facts.
+2. **Broad to Deep:** Execute search workflow (Web -> Context7 -> Scraping -> Testing).
+3. **Parallelize:** Search independent topics concurrently.
+4. **Synthesize:** Extract only necessary facts.
+5. **Apply:** Inform implementation, cite source if key decision.
 
 ## Output Format
-
-When research informs a decision, state it:
-> "According to [source], the correct approach is X. Using that:"
-
-Do not pad with "I found that..." — lead with the actionable finding.
+State decision directly:
+> "According to [source], correct approach is X. Using that:"
+Do NOT pad ("I found that..."). Lead with actionable finding.
 
 ## When NOT to Research
-
-- Stable language syntax (JS/TS/Go fundamentals)
-- General algorithms or data structures
-- Code you can directly read in the project
+- Stable syntax (JS/TS/Go fundamentals)
+- General algorithms/data structures
+- Code readable in project

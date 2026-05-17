@@ -6,52 +6,53 @@ description: Structured task decomposition for complex or multi-step work. Auto-
 # Planning Skill
 
 ## Auto-Trigger Conditions
+Activate when **ANY** of the following is true:
 
-Activate this skill when:
-- Task affects more than 2 files
-- Task involves adding a new feature, refactoring, or changing architecture
-- Task description is high-level ("build X", "add Y", "refactor Z")
-- Task has unclear stopping condition
-- Task involves external integrations (APIs, databases, auth)
-- Research task covers multiple angles or sources (feasibility study, technology comparison, option evaluation)
-- Task requires synthesizing findings into a recommendation or decision
+**1. Mandatory Workflow Trigger:**
+- Reaching **Phase D: Plan Presentation** in the `[CODE]` or `[SETUP]` workflow (mandatory for ALL modifications, even 1-line changes).
+
+**2. User Request:**
+- User explicitly asks for a plan, approach, or breakdown (e.g., "列出計畫", "打算怎麼做").
+
+**3. Task Characteristics:**
+- Affects >2 files
+- Adds new feature, refactors, or changes architecture
+- Is high-level ("build X") or has unclear scope/stopping condition
+- Involves external integrations (APIs, DBs, auth)
+- Is multi-angle research (feasibility, tech comparison)
+- Requires synthesizing findings into a decision
 
 ## Planning Sequence
-
-1. **Read before planning** — scan relevant files to understand current state
-2. **Identify unknowns** — list anything that needs research or clarification
-3. **Decompose** — break into concrete, ordered steps with clear completion criteria
-4. **Surface risks** — note any step that could have side effects or require rollback
-5. **Present plan** — output in the format below and wait for approval
+1. **Read**: Scan relevant files.
+2. **Identify unknowns**: List items needing research/clarification.
+3. **Decompose**: Concrete, ordered steps with clear completion criteria.
+4. **Surface risks**: Note side effects or rollback needs.
+5. **Present plan**: Use format below, wait for approval.
 
 ## Plan Format
-
-*(Note: The structure must exactly match this template, but all content should be written in the user's language.)*
-
+*(Also write title and content in user's language.)*
 ```
 ## Plan: [Task Name]
-
-**Scope:** [one sentence describing what will and will not be changed]
+**Scope:** [One sentence: what WILL and WILL NOT change]
 
 ### Steps
 1. [Action] → [Concrete outcome / file changed]
-2. [Action] → [Concrete outcome / file changed]
-...
 
 ### Assumptions
-- [Any assumption that, if wrong, would change the plan]
+- [Fatal assumptions only]
 
-### Open Questions (if any)
-- [Decision that requires user input before proceeding]
+### Open Questions
+- [Decisions needing user input]
+
+[Options for user]
 ```
+*(Hide `Open Questions` if empty).*
 
 ## Execution After Approval
-
-- Execute steps in order unless parallelism is safe and obvious
-- After each phase (logical group of steps), confirm state before continuing
-- If a step reveals new information that invalidates a later step, re-plan that portion and notify the user
+- Execute in order.
+- Confirm state after each phase.
+- If new info invalidates later steps: Re-plan and notify user.
 
 ## Scope Discipline
-
-- Do ONLY what is in the approved plan
-- If you discover useful improvements outside the plan scope, note them in the completion report as "out of scope suggestions" — do not implement them silently
+- Execute ONLY approved plan.
+- Useful discoveries = "Out of scope suggestions" in completion report. DO NOT implement silently.

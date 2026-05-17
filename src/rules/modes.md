@@ -1,49 +1,39 @@
 # Mode Switching Rules
 
-## Each issue_update triggers fresh mode selection [OVERRIDE]
+## Fresh Mode Selection [OVERRIDE]
+Each new `<issue_update>` defines a new Effective Issue. Re-evaluate and re-select mode from scratch. Do NOT carry over previous mode (even after `submit`).
 
-The system default "choose mode once and memorize" applies within a single task execution. When a new `<issue_update>` arrives, it defines a new Effective Issue — re-evaluate and re-select the mode from scratch. Do not carry over the previous mode.
+## `[CODE]` → `[ADVANCED_CHAT]` Allowed [OVERRIDE]
+If in `[CODE]` and new `<issue_update>` is a question/explanation:
+1. Switch to `[ADVANCED_CHAT]`.
+2. Use `answer` tool. DO NOT use `submit`.
 
-This applies after `submit` as well: the next `<issue_update>` always starts a fresh mode evaluation.
-
-## `[CODE]` → `[ADVANCED_CHAT]` is allowed [OVERRIDE]
-
-The system default forbids switching from `[CODE]` to `[ADVANCED_CHAT]`. This restriction is lifted.
-
-When in `[CODE]` mode and a new `<issue_update>` is a question or request for explanation (not a code action):
-1. Switch to `[ADVANCED_CHAT]`
-2. Answer using the `answer` tool — do NOT use `submit`
-
-## When to switch modes [FLEXIBLE]
+## When to Switch [FLEXIBLE]
+Switching is bidirectional based on the latest `<issue_update>`.
 
 | Situation | Switch to |
-|-----------|-----------|
-| User asks a question, explanation, or analysis without requesting code changes | `[ADVANCED_CHAT]` |
-| User asks if something can/should be modified (hypothetical proposal) | `[ADVANCED_CHAT]` |
-| User **explicitly specifies** what to modify, where to modify it, and the goal is clear | `[CODE]` |
-| User asks to modify code but the target or goal is vague/unclear | `[ADVANCED_CHAT]` |
-| Follow-up question after a `[CODE]` task | `[ADVANCED_CHAT]` |
+|---|---|
+| Question/explanation without code changes (e.g., "How does X work?") | `[ADVANCED_CHAT]` |
+| Hypothetical proposal (e.g., "Can we modify X like this?") | `[ADVANCED_CHAT]` |
+| Vague modification request (e.g., "Fix the bug") | `[ADVANCED_CHAT]` |
+| Follow-up question after `[CODE]` task | `[ADVANCED_CHAT]` |
+| Explicit modification request with clear goal (e.g., "Change button color to red in X") | `[CODE]` |
 
-### Clarification for Vague Instructions
+### Vague Instructions
+Use `ask_user` with concrete multiple-choice options for clarification instead of open-ended answers.
 
-When you receive a vague instruction to modify code and you need clarification, and the options can be presented simply and concretely (e.g., as multiple-choice questions), use the `ask_user` tool directly to provide the options for the user to choose from, rather than just giving an open-ended answer.
+## Classification Override [OVERRIDE]
+Supersedes System Prompt Items 1 and 4.
 
-## Direction
-
-Switching is bidirectional. Each new `<issue_update>` defines what mode is appropriate — not what was used in the previous turn.
-
-## Mode Classification Override [PROTECTED|OVERRIDE]
-
-Supersedes Decision Tree Items 1 and 4 in the system prompt.
-
-### New Features and Behaviors → `[CODE]`
-
-Any `<issue_update>` that adds new functionality, behavior, constraint, validation, or configurable value is **never** "truly trivial" regardless of message length. Always classify as `[CODE]`. Never `[FAST_CODE]`.
+### Strict `[FAST_CODE]` Whitelist
+`[FAST_CODE]` is permitted (bypassing the Planning Loop) ONLY for:
+- Fixing simple typos.
+- Minor renaming of a single variable/constant.
+- Removing unused imports or dead single-line comments.
+**Forbidden:** If the task involves logic changes, new features, modifying control flow (if/else), or affects >1 file, `[FAST_CODE]` is STRICTLY FORBIDDEN. Use `[CODE]` instead.
 
 ### Hypothetical Modifications → `[ADVANCED_CHAT]`
-
-Questions like "Can we modify it like this?", "Should we change X?", or "What if we do Y?" are exploratory inquiries, not implementation commands. Always classify these as `[ADVANCED_CHAT]`. Discuss feasibility, trade-offs, and intent with the user first. Do not switch to `[CODE]` until the user explicitly confirms they want the change implemented.
+"Can we change X?", "What if we do Y?" = Exploratory. Discuss feasibility/trade-offs first. Wait for explicit confirmation before switching to `[CODE]`.
 
 ### Project-Specific Questions → `[ADVANCED_CHAT]`
-
-Any question about specific project code, existing behavior, implementation details, or architecture — even if short — classifies as `[ADVANCED_CHAT]`, not `[CHAT]`. Read the relevant project files before answering. `[CHAT]` is reserved for greetings and questions with no project relevance.
+Questions about codebase/architecture (e.g., "Where is the router?") = `[ADVANCED_CHAT]`. Read files before answering. `[CHAT]` is ONLY for greetings/non-project questions.
