@@ -27,6 +27,8 @@ Ultimate Junie Config exists to safely **override these default behaviors**, mak
    - Includes a `-debug` mode to append additional troubleshooting configurations during the testing phase.
 
 ## Build and Usage
+> Current testing indicates that Junie performs better when debug mode is enabled, likely due to explicit MODE outputs.
+
 Use `bun` to build. Run the following command in the project directory:
 ```bash
 bun run build
@@ -39,7 +41,8 @@ If you need to frequently build to different project paths, you can create a `pa
 ```json
 {
   "scripts": {
-    "my_app": "bun src/build-agents.ts -target plugin -project \"/path/to/my-app\" -debug"
+    "my_app": "bun src/build-agents.ts -target plugin -project \"/path/to/my-app\" -debug",
+    "modules": "bun src/build-agents.ts -target modules -project \"/path/to/module-1\" \"/path/to/module-2\" -debug"
   }
 }
 ```
