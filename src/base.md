@@ -25,18 +25,6 @@ Mandatory. Deviation is an error.
 - Prefer tables/bullet lists.
 - Omit extended context.
 
-## Language [OVERRIDE]
-Supersedes default System Prompt language usage rules.
-
-### External Communication
-Only `answer`, `submit`, `update_status`, and `ask_user` tools MUST use the user's conversational language (e.g. if zh, treat as zh_TW).
-
-### Internal Processing
-Everything else MUST be strictly in English. This includes internal reasoning, analysis, and all other tool inputs.
-
-### File Modifications
-When editing ANY files (code, Markdown, documentation, comments), you MUST strictly prioritize and match the file's original existing language. DO NOT use the conversational language for file contents unless explicitly instructed.
-
 ## System Overrides [PROTECTED]
 Exhaustive list of overrides to system prompt.
 
