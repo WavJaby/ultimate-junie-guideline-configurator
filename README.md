@@ -1,77 +1,87 @@
-# Ultimate Junie Config
+# Ultimate Junie Guideline Configurator
 
-Ultimate Junie Config is a centralized configuration and build system designed specifically for the Junie plugin and Junie ACP Agent.
+A centralized configuration and build system designed to override, enhance, and manage the behavior of the **JetBrains Junie plugin**, **Junie ACP Agent**, and **Junie CLI**.
 
-## Problem Statement
+## Why Use This? (The Problem)
 
-The original system prompt for the Junie plugin is too barebones, making the plugin extremely difficult to use out of the box. While it offers powerful capabilities and high customizability, it lacks proper organization.
+Out of the box, the JetBrains Junie plugin can feel barebones or overly constrained. By default, it:
+- Generates execution plans invisibly.
+- Restricts fluid context switching between coding and chatting.
+- Defaults to localized patches, which can clutter project logic over time.
 
-By default, Junie operates under rigid system constraints: it generates execution plans invisibly, restricts fluid context switching between coding and architectural discussions, and defaults to applying localized patches rather than structural improvements. 
+**Ultimate Junie Config** safely overrides these behaviors, making the agent significantly more transparent, cautious, and proactive, while serving as a single source of truth across multiple projects to prevent configuration fragmentation.
 
-Ultimate Junie Config exists to safely **override these default behaviors**, making the agent significantly more transparent, cautious, and proactive. However, manually maintaining and injecting these complex override rules, skills, and model tunings across multiple projects and execution environments (e.g., IDE plugins, standalone ACPs) leads to severe configuration fragmentation. Ultimate Junie Config solves this by serving as a centralized compiler and single source of truth for agent behavior.
+## Key Enhancements
 
-## Enhancing Junie's Capabilities
+- **Transparent Planning**: Forces the agent to present detailed plans and wait for explicit approval before modifying code.
+- **Mandatory Research**: Eliminates blind execution by enforcing contextual research and scoping.
+- **Fluid Mode Switching**: Seamlessly transitions between strict code execution (`[CODE]`) and technical discussions (`[ADVANCED_CHAT]`).
+- **Proactive Refactoring**: Prioritizes DRY principles and structural improvements over naive patching. This prevents the default behavior of continuously stacking small fixes without discussing trade-offs, which ultimately leads to chaotic internal project logic.
+- **Modular Skills**: Decouples rules and skills, automatically merging them for plugin-based Junie support.
+- **Native Multilingual Support**: Processes user input in any language while strictly maintaining internal reasoning in English and preserving the original language of project files.
+- **Structured Reasoning Checklist**: Enforces a mandatory 5-step cognitive verification process before any action, drastically reducing hallucinations and scope creep.
 
-- **Transparent Planning & Execution**: Overrides the default hidden-plan protocol, forcing Junie to present a detailed execution plan and wait for explicit developer approval before modifying any files.
-- **Mandatory Research & Scoping**: Eliminates the "blind execution" anti-pattern. Forces Junie to pause, perform contextual research, and explicitly clarify ambiguities or scope boundaries before writing any code, preventing scope drift and misaligned expectations.
-- **Fluid Mode Switching**: Lifts default state-machine restrictions, enabling Junie to seamlessly transition between strict code execution (`[CODE]`) and exploratory technical discussions (`[ADVANCED_CHAT]`).
-- **Proactive Refactoring**: Supersedes the default "minimal changes" directive, empowering the agent to prioritize DRY principles and propose systematic refactoring over naive code patching.
-- **Targeted Modular Skills**: Decouples analytical skills (e.g., research, planning) and platform-specific rules into independent modules, automatically merging them based on the target architecture to optimize agent performance.
+## Build & Usage
 
-## Key Features
-1. **Multi-Target Build System (`build-agents.ts`)**:
-   - Supports `-target plugin` and `-target acp` parameters to automatically generate optimized `.junie/AGENTS.md` structures for different architectures.
-   - Supports multi-project injection: Use the `-project` parameter to update agent configuration files across multiple project paths simultaneously.
-2. **Automated Processing and Merging**:
-   - Automatically strips YAML frontmatter and merges Markdown files to produce a clean final configuration.
-   - Includes a `-debug` mode to append additional troubleshooting configurations during the testing phase.
+The `build-agents.ts` script is the core compiler of this system. It processes the source files to generate optimized outputs:
+1. **Parses & Cleans**: Reads modular Markdown files from `src/` and automatically strips YAML frontmatter.
+2. **Merges**: Combines shared base configs, platform-specific rules, skills, and model tunings into a cohesive context.
+3. **Distributes**: Generates the appropriate file structures for different execution targets (**Plugin-based Junie**, **Junie ACP Agent**, and **Junie CLI**).
+4. **Injects**: Can compile and inject configurations directly into external project directories.
 
-## Build and Usage
-> Current testing indicates that Junie performs better when debug mode is enabled, likely due to explicit MODE outputs.
+### Prerequisites
+- [Bun](https://bun.sh/) installed.
 
-Use `bun` to build. Run the following command in the project directory:
+### Standard Build
+Generate configuration files for all targets to `./build`:
 ```bash
 bun run build
 ```
-This command will execute `src/build-agents.ts` and automatically generate plugin and acp configuration files to `./build`.
+> [!IMPORTANT]
+> Junie CLI uses the same `.junie/AGENTS.md` and structure generated by the `-target acp` flag.
 
-### Using Custom Local Scripts (`package.local.json`)
-If you need to frequently build to different project paths, you can create a `package.local.json` file to define custom local scripts. This prevents modifying the main `package.json` file of the project:
-
+### Custom Multi-Project Build (`package.local.json`)
+For frequent builds to specific project paths, create a `package.local.json`:
 ```json
 {
   "scripts": {
     "my_app": "bun src/build-agents.ts -target plugin -project \"/path/to/my-app\" -debug",
-    "modules": "bun src/build-agents.ts -target modules -project \"/path/to/module-1\" \"/path/to/module-2\" -debug"
+    "my_app_acp": "bun src/build-agents.ts -target acp -project \"/path/to/my-app/using/junie-acp\" -debug",
+    "multiple_apps": "bun src/build-agents.ts -target plugin -project \"/path/to/app-1\" \"/path/to/app-2\" -debug"
   }
 }
 ```
+> [!CAUTION]
+> **Automatic Overwrite**: 
+> The build script will **directly overwrite** any existing `.junie/AGENTS.md` in your target project directory. Please **backup your existing guidelines** before running the build!
+> If your project has custom guidelines, move them to `.junie/PROJECT.md`. The build script will automatically merge them into the final `AGENTS.md`.
 
-Then, use `bun local` with the script name to execute it:
+Run your custom script:
 ```bash
 bun run local my_app
 ```
 
-## How to use PROJECT.md
-If your project requires customized Junie behavior or special rules, you can create `.junie/PROJECT.md` in the project directory.
-This file will be automatically appended to the end of `AGENTS.md` during the build process.
-Whenever you modify `.junie/PROJECT.md`, you must run the build command (`bun run build`) to apply the changes.
+> [!TIP]
+> From my tests, Junie performs better when debug mode is enabled, likely due to explicit MODE outputs.
 
----
+## Project Customization (`PROJECT.md`)
+
+> [!IMPORTANT]
+> Run `bun run build` or your custom build script whenever you modify `.junie/PROJECT.md` to apply changes to `.junie/AGENTS.md`.
 
 ## Source Layout
-* `src/base.md`                          shared base
-* `src/debug.md`                         shared debug
-* `src/rules/*.md`                       shared rules
-* `src/models/<model>.md`                shared model tuning
-* `src/skills/`                          shared skills (e.g. research)
-* `src/junie_plugin/rules/`              plugin tool rules
-* `src/junie_plugin/skills/`             plugin-only skills (e.g. planning, ACP have builtin planning skill)
-* `src/junie_acp/rules/`                 ACP tool rules
 
-## Default Output
-* **plugin**: `plugin/.junie/AGENTS.md`  (everything inlined)
-* **acp**: 
-  - `acp/.junie/AGENTS.md`     (base + tool_rules + model)
-  - `acp/.aiassistant/rules/`  (shared rules + ACP)
-  - `acp/.agents/skills/`      (shared skills only)
+- `src/base.md` - Shared base configurations
+- `src/debug.md` - Shared debug rules
+- `src/rules/*.md` - Shared behavioral rules
+- `src/models/<model>.md` - Model-specific tuning
+- `src/skills/` - Shared analytical skills (e.g., research)
+- `src/junie_plugin/` - Plugin-specific rules and skills
+- `src/junie_acp/` - ACP-specific rules
+
+### Default Outputs
+- **Plugin**: `plugin/.junie/AGENTS.md` (everything inlined)
+- **ACP**: 
+  - `acp/.junie/AGENTS.md` (base + tool_rules + model)
+  - `acp/.aiassistant/rules/` (shared rules + ACP)
+  - `acp/.agents/skills/` (shared skills only)

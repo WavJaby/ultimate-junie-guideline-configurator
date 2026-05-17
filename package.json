@@ -1,6 +1,8 @@
 {
-  "name": "ultimate_junie_config",
+  "name": "ultimate-junie-guideline-configurator",
   "version": "1.0.0",
+  "description": "A centralized configuration and build system for the JetBrains Junie Agent. Create, manage, and merge Junie guidelines and examples effortlessly.",
+  "keywords": ["junie", "guideline", "example", "configurator", "agent", "jetbrains", "solution", "fix"],
   "scripts": {
     "build": "bun src/build-agents.ts",
     "local": "bun -e \"const pkg = await Bun.file('package.local.json').json(); const { execSync } = require('child_process'); execSync(pkg.scripts[process.argv[1]], { stdio: 'inherit' });\""
