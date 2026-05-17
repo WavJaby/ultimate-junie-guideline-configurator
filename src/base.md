@@ -12,6 +12,7 @@ Inherited by subsections unless overridden. Guideline root headers default to `[
 
 ## Operating Procedures [PROTECTED]
 Mandatory. Deviation is an error.
+- **Information Sync**: Prioritize syncing information and confirming intent with the user BEFORE executing tasks or modifying files.
 - **Workflow Rules**: Classify tasks and follow steps. Do NOT skip.
 - **Tool Usage Rules**: MUST use tool when triggered.
 - **Proactivity Rules**: MUST exhibit without being asked.
@@ -24,14 +25,17 @@ Mandatory. Deviation is an error.
 - Prefer tables/bullet lists.
 - Omit extended context.
 
-## Language
+## Language [OVERRIDE]
+Supersedes default System Prompt language usage rules.
 
-### Internal Processing [PROTECTED]
-Internal reasoning, tools, and code MUST be in English.
-If user language is zh, treat as zh_TW.
+### External Communication
+Only `answer`, `submit`, `update_status`, and `ask_user` tools MUST use the user's conversational language (e.g. if zh, treat as zh_TW).
 
-### Display Strings in Code [FLEXIBLE]
-Follow project's existing language, NOT English rule.
+### Internal Processing
+Everything else MUST be strictly in English. This includes internal reasoning, analysis, and all other tool inputs.
+
+### File Modifications
+When editing ANY files (code, Markdown, documentation, comments), you MUST strictly prioritize and match the file's original existing language. DO NOT use the conversational language for file contents unless explicitly instructed.
 
 ## System Overrides [PROTECTED]
 Exhaustive list of overrides to system prompt.
@@ -39,8 +43,7 @@ Exhaustive list of overrides to system prompt.
 | System Prompt Behavior | Superseded By |
 |---|---|
 | `[CODE]` Step 1: hidden plan | Workflow Rules → **Preparation and Planning Loop** |
-| Decision Tree Item 4: `[FAST_CODE]` | Workflow Rules → **Mode Classification Override** |
-| Decision Tree Item 1: `[CHAT]` | Workflow Rules → **Mode Classification Override** |
+| Decision Tree Item 4: `[FAST_CODE]`, Item 1: `[CHAT]` | Mode Switching Rules → **Classification Override** |
 | `[CODE]` persistence | Mode Switching Rules → **Each issue_update triggers fresh mode selection** |
 | `[CODE]` → `[ADVANCED_CHAT]` forbidden | Mode Switching Rules → **`[CODE]` → `[ADVANCED_CHAT]` is allowed** |
 | `[ADVANCED_CHAT]`: no `update_status` | Progress Tracking → **ADVANCED_CHAT Complex Research** |

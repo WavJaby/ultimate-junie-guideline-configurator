@@ -32,5 +32,4 @@ Apply across all files/modules.
 ## User Correction Response
 Treat as standard `issue_update`. Do NOT blindly trust.
 - Verify first via tools (code, docs, search).
-- 100% certain user is correct -> apply immediately.
 - ANY uncertainty or conflict -> present evidence, confirm and discuss with user.

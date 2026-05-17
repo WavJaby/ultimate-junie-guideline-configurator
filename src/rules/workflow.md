@@ -4,7 +4,7 @@
 When receiving ANY `<issue_description>` or `<issue_update>`, ALWAYS execute these steps first to gather context, regardless of the chosen interaction mode:
 
 ### Phase A: Context Gathering (Read Codebase)
-Read ALL relevant files. NEVER modify or answer about an unread file. (If returning from Phase E, read new targets).
+Read ALL relevant files. NEVER modify or answer about an unread file. (If returning from Phase F, read new targets).
 
 ### Phase B: Research Scan
 Identify 3rd-party libraries, APIs, or services.
@@ -14,7 +14,11 @@ Identify 3rd-party libraries, APIs, or services.
 - **Not found / None needed:** Proceed.
 *NO training data for 3rd-party APIs.*
 
-*(After Phase B, the final mode is decided based on Mode Classification Rules. If entering `[ADVANCED_CHAT]`, `[CHAT]`, or `[RUN_VERIFY]` without modifications, proceed to output. If modifications are required -> Enter Part 2.)*
+### Phase C: Mode Classification
+Decide the final mode based on Mode Classification Rules.
+**CRITICAL**: Mode classification is STRICTLY based on the presence of an explicit command. Proactivity rules DO NOT grant permission to modify files in non-modification modes. Proactive changes are ONLY allowed after legally entering `[CODE]` or `[SETUP]`.
+- If entering `[ADVANCED_CHAT]`, `[CHAT]`, or `[RUN_VERIFY]` without modifications -> Proceed to output.
+- If modifications are required -> Enter Part 2.
 
 ## Part 2: Preparation and Planning Loop [OVERRIDE]
 Supersedes `[CODE]` Step 1 (hidden plan). Complete before editing any code or configuration.
@@ -23,39 +27,39 @@ Supersedes `[CODE]` Step 1 (hidden plan). Complete before editing any code or co
 ### The Modification Workflow Map
 ```mermaid
 graph TD
-    Start([Part 1 Finished: Mode = CODE / SETUP]) --> PhaseC
+    Start([Part 1 Finished: Mode = CODE / SETUP]) --> PhaseD
     subgraph PrepLoop [Preparation and Planning Loop]
-        PhaseC{C: Clarity Gate}
-        PhaseC -- Missing Info --> AskGate[ask_user: Resolve]
+        PhaseD{D: Clarity Gate}
+        PhaseD -- Missing Info --> AskGate[ask_user: Resolve]
         AskGate -. Wait .-> PhaseA[Return to Part 1]
-        PhaseC -- Clear --> PhaseD[D: Present Plan]
-        PhaseD -- Rejected/Changes --> Revise[E: Revision Loop]
+        PhaseD -- Clear --> PhaseE[E: Present Plan]
+        PhaseE -- Rejected/Changes --> Revise[F: Revision Loop]
         Revise -. Gather new .-> PhaseA
     end
-    PhaseD -- Approved --> PhaseF[F: Execution Handoff]
-    PhaseF --> Exec([Execute Steps 2-7 Autonomously])
+    PhaseE -- Approved --> PhaseG[G: Execution Handoff]
+    PhaseG --> Exec([Execute Steps 2-7 Autonomously])
 ```
 
-### Phase C: Clarity Gate
+### Phase D: Clarity Gate
 STOP and `ask_user` if:
 - **Missing Requirements:** DO NOT assume values.
 - **Multiple Approaches:** Present options.
 - **Infeasibility:** Conflicts with codebase.
 
-### Phase D: Plan Presentation (Mandatory Planning Skill)
+### Phase E: Plan Presentation (Mandatory Planning Skill)
 **FORCE TRIGGER Planning Skill here, regardless of modification size.** Wait for explicit approval before execution.
 - **Standard:** Use `ask_user` to present plan. Even for 1-line changes, present what will change.
-- **Large/Complex (multi-phase/code blocks):** Switch to `[ADVANCED_CHAT]`, use `answer` tool, and explicitly ask for approval. If approved -> `[CODE]` Phase F. If changes -> Phase E.
+- **Large/Complex (multi-phase/code blocks):** Switch to `[ADVANCED_CHAT]`, use `answer` tool, and explicitly ask for approval. If approved -> `[CODE]` Phase G. If changes -> Phase F.
 
-### Phase E: Revision Loop
+### Phase F: Revision Loop
 If user requests changes/adds constraints:
 **NEVER** treat new requirements as implicit approval to proceed.
 1. Identify missing context.
 2. Loop back to Part 1 (Phase A/B) to read/research.
-3. Update plan & return to Phase D.
+3. Update plan & return to Phase E.
 4. Repeat until explicit approval.
 
-### Phase F: Execution Handoff
+### Phase G: Execution Handoff
 **ONLY after explicit confirmation:** Use `update_status` to publish plan.
 Execute `[CODE]` Steps 2–7 autonomously.
 
