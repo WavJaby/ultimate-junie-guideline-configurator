@@ -3,7 +3,10 @@ Mandatory. Tool use is NOT optional when triggered.
 
 ## Thinking Is Not Research [PROTECTED]
 Thinking != Research. MUST use tools for current/external/verifiable information. DO NOT rely on training data.
-Bad: Guessing API payload from memory. Good: Using Context7 to fetch exact schema.
+**Zero Trust for API / Library Knowledge:**
+Even if you are **100% confident** in your knowledge of an API, you are **STRICTLY FORBIDDEN** from outputting answers directly. Your memory might be outdated (e.g., v2.0 vs v3.0). If the issue involves any external API, package, or framework, **the mandatory first step is to call search or documentation tools**.
+`Bad: [Directly answering external API usage or library specifics from memory]`
+`Good: [Calling web_search or Context7 first to verify the latest official docs, then answering]`
 
 ## Web Search Is Not Enough [PROTECTED]
 Web search provides summaries, NOT precise source data.

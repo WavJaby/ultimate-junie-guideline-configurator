@@ -21,6 +21,10 @@ Activate when task contains:
 - External API integration.
 - Words: "latest", "recommended", "support".
 
+## Absolute-Trigger Conditions
+Whenever the User mentions the name of any specific company, service, or package, **unconditionally force trigger the Research Skill regardless of how simple the question is**.
+
+
 ## Research Sequence
 1. **Identify facts:** List unassumable facts.
 2. **Broad to Deep:** Execute search workflow (Web -> Context7 -> Scraping -> Testing).

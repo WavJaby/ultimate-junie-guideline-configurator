@@ -34,19 +34,16 @@ Activate when **ANY** of the following is true:
 ```
 ## Plan: [Task Name]
 **Scope:** [One sentence: what WILL and WILL NOT change]
-
 ### Steps
 1. [Action] → [Concrete outcome / file changed]
-
+### Test Strategy
+- [What to test and how to test (unit, manual, etc.)]
 ### Assumptions
 - [Fatal assumptions only]
-
-### Open Questions
+### Open Questions (optional, include only if needed)
 - [Decisions needing user input]
-
 [Options for user]
 ```
-*(Hide `Open Questions` if empty).*
 
 ## Execution After Approval
 - Execute in order.
