@@ -12,7 +12,7 @@ Activate when **ANY** of the following is true:
 - Reaching **Phase D: Plan Presentation** in the `[CODE]` or `[SETUP]` workflow (mandatory for ALL modifications, even 1-line changes).
 
 **2. User Request:**
-- User explicitly asks for a plan, approach, or breakdown (e.g., "列出計畫", "打算怎麼做").
+- User explicitly asks for a plan, approach, or breakdown (e.g., "list the plan", "What to do", etc.).
 
 **3. Task Characteristics:**
 - Affects >2 files

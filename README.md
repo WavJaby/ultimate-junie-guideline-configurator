@@ -26,6 +26,34 @@ Ultimate Junie Config exists to safely **override these default behaviors**, mak
    - Automatically strips YAML frontmatter and merges Markdown files to produce a clean final configuration.
    - Includes a `-debug` mode to append additional troubleshooting configurations during the testing phase.
 
+## Build and Usage
+Use `bun` to build. Run the following command in the project directory:
+```bash
+bun run build
+```
+This command will execute `src/build-agents.ts` and automatically generate plugin and acp configuration files to `./build`.
+
+### Using Custom Local Scripts (`package.local.json`)
+If you need to frequently build to different project paths, you can create a `package.local.json` file to define custom local scripts. This prevents modifying the main `package.json` file of the project:
+
+```json
+{
+  "scripts": {
+    "my_app": "bun src/build-agents.ts -target plugin -project \"/path/to/my-app\" -debug"
+  }
+}
+```
+
+Then, use `bun local` with the script name to execute it:
+```bash
+bun run local my_app
+```
+
+## How to use PROJECT.md
+If your project requires customized Junie behavior or special rules, you can create `.junie/PROJECT.md` in the project directory.
+This file will be automatically appended to the end of `AGENTS.md` during the build process.
+Whenever you modify `.junie/PROJECT.md`, you must run the build command (`bun run build`) to apply the changes.
+
 ---
 
 ## Source Layout
