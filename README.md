@@ -21,6 +21,18 @@ Out of the box, the JetBrains Junie plugin can feel barebones or overly constrai
 - **Native Multilingual Support**: Processes user input in any language while strictly maintaining internal reasoning in English and preserving the original language of project files.
 - **Structured Reasoning Checklist**: Enforces a mandatory 5-step cognitive verification process before any action, drastically reducing hallucinations and scope creep.
 
+## Install
+
+You can download the pre-built configuration files directly from the [Latest Release](https://github.com/WavJaby/UltimateJunieConfig/releases/latest) page.
+
+**Available Pre-builds:**
+- `AGENTS.md` (Optimized for Gemini 3.1 Pro)
+- `AGENTS-3-Flash.md` (Optimized for Gemini 3 Flash)
+
+1. Download the file based on your model preference.
+2. Move it to `your_project/.junie/AGENTS.md` (make sure to rename it to `AGENTS.md` if you downloaded the Flash version).
+3. Start a new Junie session and you are good to go!
+
 ## Build & Usage
 
 The `build-agents.ts` script is the core compiler of this system. It processes the source files to generate optimized outputs:
