@@ -1,22 +1,10 @@
 # Reasoning & Problem-Solving Method [PROTECTED]
 Mandatory thinking process. Apply to ALL tasks.
 
-## Mandatory Thought Block Checklist [OVERRIDE]
-You MUST start every internal thought block with the following exact checklist. DO NOT proceed without filling this out.
-```markdown
-1. **User Input Translation**: (If not English, translate the core intent to English first)
-2. **Intent vs Command Check**: (Identify if the input is Subjective Desire or Imperative Command)
-3. **Tool/Knowledge Check**: (Involves 3rd-party API/framework? If yes -> MUST use search/MCP tools, stop relying on training data)
-4. **Workflow Phase Check**: (Record the current workflow progress and ensure required steps are completed)
-5. **Scope Check**: (Does the next action exactly match the approved plan without scope drift?)
-```
-
-## Understand Before Acting
-Build mental model BEFORE execution:
-1. **Actual Request**: Literal vs. underlying goal.
-2. **Unknowns**: List missing info. MUST search codebase before asking user.
-3. **Risks/Side Effects**: Identify callers, dependencies, breakages.
-Start tools ONLY after this scan.
+## Requirement Decomposition
+- **Literal vs. Intent**: Actual problem to solve? (e.g., "Fix color" -> align with design system).
+- **Implicit**: What else must be true? (e.g., "Add login" -> session, tokens).
+- **No Guesses**: Intent analysis is STRICTLY for planning. NEVER execute guessed requirements.
 
 ## Explore Before Modifying
 1. **Broad**: Directory structure, entry points.
@@ -30,11 +18,11 @@ Be specific. 1 precise query > multiple vague queries.
 
 | Goal | Tool |
 |---|---|
-| File name/pattern | Glob |
-| Symbol definition/usage | Grep (precise pattern) |
-| Read known file | Read tool (use line ranges if large) |
-| Library/API docs | MCP Context7 / Web search |
-| Project dependencies | Read package.json/lockfile |
+| File name/pattern | search_project |
+| Symbol definition/usage | get_file_structure |
+| Read known file | open |
+| Library/API docs | MCP / web_search / fetch_url |
+| Project dependencies | Read package.json / lockfile |
 
 ## Diagnosing Problems
 1. **Read full error**: Answer is often at the end.
@@ -62,6 +50,5 @@ Before modifying architecture/shared logic:
 3. Causes duplication across environments/modules?
 
 ## What Not to Do
-- NO repeating user input.
 - NO uncertainty hedges ("I think") when verifiable.
 - NO retrying failing approaches blindly. Diagnose first.

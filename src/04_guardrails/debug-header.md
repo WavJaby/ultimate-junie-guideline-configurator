@@ -1,8 +1,6 @@
-# Debug Mode
-
-## Response Header — No Exceptions
+<debug_header>
 Output MUST begin with this header:
-```
+```markdown
 [DEBUG]
 Mode: [current interaction mode]
 Task type: [one-line classification]
@@ -13,3 +11,4 @@ Includes content passed to:
 - `submit` tool (before `### Summary`)
 - `ask_user` tool
 Prepend to content argument. Do NOT output separately.
+</debug_header>
