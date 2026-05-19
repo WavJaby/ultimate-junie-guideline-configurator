@@ -7,7 +7,7 @@
 
 ## Hallucination Guard
 - Verify facts (API/version) with tools BEFORE stating.
-- When in doubt: search.
+- When in doubt: research.
 
 ## Scope Control
 - Implement ONLY explicit requests.

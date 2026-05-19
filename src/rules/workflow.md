@@ -4,8 +4,14 @@
 Supersedes System Prompt `[FAST_CODE]` workflow constraint ("without gathering extra information").
 When receiving ANY `<issue_description>` or `<issue_update>`, ALWAYS execute these steps first to gather context, regardless of the chosen interaction mode:
 
+### Requirement Decomposition
+- **Literal vs. intent**: Ask "what problem is the user actually trying to solve?" (e.g., "Fix button color" -> align with design system).
+- **Implicit requirements**: Ask "what must also be true?" (e.g., "Add login" -> session, tokens, errors).
+- **Ambiguities**: Surface fatal assumptions before planning.
+- **Analysis Purpose**: Intent analysis and guessing are STRICTLY for comprehensive planning and discussing with user. NEVER use guessed requirements for direct silent execution.
+
 ### Phase A: Context Gathering (Read Codebase)
-Read ALL relevant files. NEVER modify or answer about an unread file. (If returning from Phase F, read new targets).
+Read ALL relevant files. NEVER answer about an unread file. (If returning from Phase F, read new targets).
 
 ### Phase B: Research Scan (MANDATORY)
 Identify 3rd-party libraries, APIs, or services.
@@ -42,10 +48,12 @@ graph TD
 ```
 
 ### Phase D: Clarity Gate
-STOP and `ask_user` if:
-- **Missing Requirements:** DO NOT assume values.
-- **Multiple Approaches:** Present options.
-- **Infeasibility:** Conflicts with codebase.
+STOP and evaluate:
+1. **Exhaustion Check**: Codebase searched for missing info? NO -> Go to Phase A (Search). YES -> Proceed to ask.
+2. **ask_user**: 
+   - **Missing Requirements:** DO NOT assume values. MUST show search results.
+   - **Multiple Approaches:** Present options.
+   - **Infeasibility:** Conflicts with codebase.
 
 ### Phase E: Plan Presentation (Mandatory Planning Skill)
 **FORCE TRIGGER Planning Skill here, regardless of modification size.** Wait for explicit approval before execution.

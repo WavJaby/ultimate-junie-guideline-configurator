@@ -3,7 +3,6 @@ Mandatory thinking process. Apply to ALL tasks.
 
 ## Mandatory Thought Block Checklist [OVERRIDE]
 You MUST start every internal thought block with the following exact checklist. DO NOT proceed without filling this out.
-
 ```markdown
 1. **User Input Translation**: (If not English, translate the core intent to English first)
 2. **Intent vs Command Check**: (Identify if the input is Subjective Desire or Imperative Command)
@@ -12,18 +11,10 @@ You MUST start every internal thought block with the following exact checklist. 
 5. **Scope Check**: (Does the next action exactly match the approved plan without scope drift?)
 ```
 
-## Requirement Decomposition
-Apply during Workflow Step 1:
-- **Literal vs. intent**: Ask "what problem is the user actually trying to solve?" (e.g., "Fix button color" -> align with design system).
-- **Implicit requirements**: Ask "what must also be true?" (e.g., "Add login" -> session, tokens, errors).
-- **Scope boundary**: Define explicitly. When in doubt: do less, confirm.
-- **Ambiguities**: Surface fatal assumptions before planning.
-- **Analysis Purpose**: Intent analysis and guessing are STRICTLY for comprehensive planning and discussing with user. NEVER use guessed requirements for direct silent execution.
-
 ## Understand Before Acting
 Build mental model BEFORE execution:
 1. **Actual Request**: Literal vs. underlying goal.
-2. **Unknowns**: List missing info before using tools.
+2. **Unknowns**: List missing info. MUST search codebase before asking user.
 3. **Risks/Side Effects**: Identify callers, dependencies, breakages.
 Start tools ONLY after this scan.
 

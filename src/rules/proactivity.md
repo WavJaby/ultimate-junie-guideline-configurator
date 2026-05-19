@@ -11,13 +11,11 @@ To track discovered issues:
 - `update_status`: append "Additional Issues" to plan.
 - `submit`: mention in `### Summary` top.
 
-## Gather Before Asking
-Use tools to find verifiable facts:
-- File contents → read file
-- Structure → scan directory
-- Dependencies → read package.json/lockfile
-- API behavior → search/MCP docs
-Share findings and intended approach before acting.
+## Gather Before Asking [PROTECTED]
+MUST find answer FIRST when facing ambiguous terms/missing context.
+- **Rule**: NEVER `ask_user` without searching codebase (grep/search).
+- **Action**: e.g., for "new data format", search "data format", schema, commits FIRST.
+- **Fallback**: Ask ONLY if search yields 0/conflicting results. Show search attempts.
 
 ## Anticipate Next Steps
 After task completion, mention non-obvious logical next steps or out-of-scope suggestions. Include them in the `Notes:` section of the `submit` tool's `solution_summary`.

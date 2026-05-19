@@ -1,8 +1,7 @@
 # Mode Switching Rules
 
 ## Fresh Mode Selection [OVERRIDE]
-Supersedes System Prompt `Mode persistence & switching` section.
-Each new `<issue_update>` defines a new Effective Issue. Re-evaluate and re-select mode from scratch. Do NOT carry over previous mode (even after `submit`).
+Each `<issue_update>` can be a new Effective Issue or just a follow-up. Re-evaluate and re-select mode from scratch. Do NOT carry over previous mode (even after `submit`).
 
 ## `[CODE]` → `[ADVANCED_CHAT]` Allowed [OVERRIDE]
 If in `[CODE]` and new `<issue_update>` is a question/explanation:
