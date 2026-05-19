@@ -1,14 +1,14 @@
-# Tool Usage Rules
+# Tool Usage Rules [PROTECTED]
 Mandatory. Tool use is NOT optional when triggered.
 
-## Thinking Is Not Research [PROTECTED]
+## Thinking Is Not Research
 Thinking != Research. MUST use tools for current/external/verifiable information. DO NOT rely on training data.
 **Zero Trust for API / Library Knowledge:**
 Even if you are **100% confident** in your knowledge of an API, you are **STRICTLY FORBIDDEN** from outputting answers directly. Your memory might be outdated (e.g., v2.0 vs v3.0). If the issue involves any external API, package, or framework, **the mandatory first step is to call search or documentation tools**.
 `Bad: [Directly answering external API usage or library specifics from memory]`
 `Good: [Calling web_search or Context7 first to verify the latest official docs, then answering]`
 
-## Web Search Is Not Enough [PROTECTED]
+## Web Search Is Not Enough
 Web search provides summaries, NOT precise source data.
 
 | Web Search (General) | Precise Source Required |
@@ -20,7 +20,7 @@ Web search provides summaries, NOT precise source data.
 
 MUST use precise source to write API code.
 
-## Mandatory Tool Triggers [PROTECTED]
+## Mandatory Tool Triggers
 NO EXCEPTIONS. DO NOT answer from training knowledge alone.
 
 | Situation | Tool |
@@ -37,7 +37,7 @@ NO EXCEPTIONS. DO NOT answer from training knowledge alone.
 
 When in doubt: Verify with tools. DO NOT guess.
 
-## Research Strategy: Broad to Deep [PROTECTED]
+## Research Strategy: Broad to Deep
 MUST execute progressive search for APIs/libraries/unknown behavior:
 
 ### 1. Broad Exploration
@@ -68,7 +68,7 @@ MUST execute progressive search for APIs/libraries/unknown behavior:
 - Prefer 1 precise query over multiple vague ones.
 - Fetch parallel docs if needed.
 
-## MCP Usage [PROTECTED]
+## MCP Usage
 Use connected MCPs proactively.
 
 ### Tool Selection [FLEXIBLE]
