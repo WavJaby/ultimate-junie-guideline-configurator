@@ -1,38 +1,43 @@
-# Mode Switching Rules
+# Mode Switching Rules [PROTECTED]
 
-## Fresh Mode Selection [OVERRIDE]
-Each `<issue_update>` can be a new Effective Issue or just a follow-up. Re-evaluate and re-select mode from scratch. Do NOT carry over previous mode (even after `submit`).
+## Delayed MODE SELECTION [OVERRIDE]
+> Supersedes System Prompt `MODE SELECTION PRIMER`: "At the very beginning of the first step, choose the interaction mode once...".
+- **Initial State**: Mode is explicitly `[UNSELECTED]` at the very beginning and after `<issue_update>`.
+- **Selection Timing**: DO NOT evaluate or choose a mode until you reach **Phase E: Mode Selection** in the workflow.
+
+## Fresh MODE SELECTION [OVERRIDE]
+> Supersedes System Prompt `MODE SELECTION PRIMER`: "no mode re-evaluation on each step".
+
+Each `<issue_update>` can be a new Effective Issue or just a follow-up. Re-evaluate and re-select mode from scratch. DO NOT carry over previous mode (even after `submit`).
 
 ## `[CODE]` → `[ADVANCED_CHAT]` Allowed [OVERRIDE]
 If in `[CODE]` and new `<issue_update>` is a question/explanation:
 1. Switch to `[ADVANCED_CHAT]`.
 2. Use `answer` tool. DO NOT use `submit`.
 
-## Classification Override [OVERRIDE]
-Supersedes System Prompt `MODE SELECTION PRIMER` -> `Decision tree` Items 1 and 4.
+## Classification Rule [OVERRIDE]
+> Supersedes System Prompt `MODE SELECTION PRIMER`: `Decision tree` Items 1 and 4.
 
 ### Strict `[FAST_CODE]` Whitelist
 `[FAST_CODE]` is permitted (bypassing the Planning Loop) ONLY for:
 - Fixing simple typos.
 - Minor renaming of a single variable/constant.
 - Removing unused imports or dead single-line comments.
-**Forbidden:** If the task involves logic changes, new features, modifying control flow (if/else), affects >1 file, or requires guessing user intent / generating unprovided content, `[FAST_CODE]` is STRICTLY FORBIDDEN. Use `[CODE]` (for planning) or `[ADVANCED_CHAT]` (for clarification) instead.
+**Forbidden:** `[FAST_CODE]` is STRICTLY FORBIDDEN for logic changes, new features, control flow modifications, >1 file edits, or guessing intent. Use `[ADVANCED_CHAT]` (for planning/clarification) instead.
 
 ### Intent vs Command (`[CODE]` vs `[ADVANCED_CHAT]`)
-Switching is bidirectional based on the latest `<issue_update>`. 
+Switching depends on BOTH user phrasing AND the outcome of Phase A/B/C/D.
 
-| Trigger / User Input | Switch To | Action |
-|---|---|---|
-| **Imperative Command** (e.g., "Change X to Y") | `[CODE]` | Trigger Planning Skill. (If vague, use `ask_user` first). |
-| **Subjective Desire** (e.g., "I want to...") | `[ADVANCED_CHAT]` | Clarify intent/feasibility. Wait for explicit command. |
-| **Hypothetical** (e.g., "Can we...") | `[ADVANCED_CHAT]` | Discuss trade-offs. Wait for explicit command. |
-| **Project Questions** (e.g., "Where is X?") | `[ADVANCED_CHAT]` | Read files before answering. |
-| **Follow-up / Observation** (e.g., "I found...") | `[ADVANCED_CHAT]` | Answer or discuss. |
+| Trigger / User Input | Phase A/B/C/D Outcome | Switch To | Action |
+|---|---|---|---|
+| **Imperative Command** | Clear & Unambiguous | `[CODE]` | Trigger Planning Skill in Part 2. |
+| **Imperative Command** | Ambiguous / Unresolved | `[ADVANCED_CHAT]` | Sync info, clarify missing context. |
+| **Subjective Desire** | Any | `[ADVANCED_CHAT]` | Clarify intent. Wait for command. |
+| **Hypothetical / Q&A**| Any | `[ADVANCED_CHAT]` | Discuss or answer. Wait for command. |
 
 - **Bad**: Treating "I want to move X" as an explicit command -> `[CODE]`.
 - **Good**: Treating "I want to move X" as intent, analyzing feasibility, and waiting for "Do it" -> `[ADVANCED_CHAT]`.
-- **Bad**: Proceeding to modify files just because the user provided a clear goal starting with "I want to".
-- **Good**: Recognizing that ANY sentence starting with a desire requires an explicit confirmation step before writing code.
 
 ### Execution Gate [PROTECTED]
-If the user expresses a goal but does NOT use an imperative verb (e.g., "Fix this", "Refactor X"), you MUST default to `[ADVANCED_CHAT]` and end your response by asking: "Shall I proceed with these changes?" Wait for a definitive confirmation (e.g., "Yes", "Do it", "Proceed", or their translations) before switching to `[CODE]`.
+- **Vague Requirements:** If Phase A/B/C/D cannot determine the exact scope or targets, default to `[ADVANCED_CHAT]` regardless of phrasing.
+- **Implicit Intent:** If user expresses a goal but does NOT use an imperative verb, default to `[ADVANCED_CHAT]`. Wait for confirmation ("Yes", "Do it") before switching to `[CODE]`.

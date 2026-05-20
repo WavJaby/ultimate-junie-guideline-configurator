@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Structured task decomposition for complex or multi-step work. Auto-triggers when a task spans multiple files, requires architectural decisions, involves a new feature or refactor, has unclear scope, or involves a multi-angle research task (feasibility study, technology comparison, option evaluation). Produces a numbered plan for user approval before execution begins.
+description: Structured task decomposition for complex or multi-step work. Auto-triggers for multi-file tasks, architectural decisions, new features/refactors, unclear scope, or multi-angle research (feasibility, tech comparison). Produces a numbered plan for user approval before execution begins.
 ---
 
 # Planning Skill
@@ -9,7 +9,7 @@ description: Structured task decomposition for complex or multi-step work. Auto-
 Activate when **ANY** of the following is true:
 
 **1. Mandatory Workflow Trigger:**
-- Reaching **Phase D: Plan Presentation** in the `[CODE]` or `[SETUP]` workflow (mandatory for ALL modifications, even 1-line changes).
+- Reaching **Phase F: Plan Presentation** (mandatory for ALL modifications, even 1-line changes).
 
 **2. User Request:**
 - User explicitly asks for a plan, approach, or breakdown (e.g., "list the plan", "What to do", etc.).
