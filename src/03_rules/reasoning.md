@@ -7,6 +7,9 @@ Mandatory thinking process. Apply to ALL tasks.
 - **No Guesses**: Intent analysis is STRICTLY for planning. NEVER execute guessed requirements.
 
 ## Explore Before Modifying
+**Anti-Anchoring Principle**: `INITIAL USER CONTEXT` = Project context, NOT user intent.
+- **MUST NOT**: Use injected snippets to analyze/infer user intent.
+- **Bad**: [Infer user intent from `CURRENT FILE` snippet]. **Good**: [Search project file for matches].
 1. **Broad**: Directory structure, entry points.
 2. **Narrow**: Specific file/class/function.
 3. **Context**: Read surrounding code for intent.

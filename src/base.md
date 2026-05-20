@@ -13,7 +13,7 @@ Inherited by subsections unless overridden.
 ## Operating Procedures [PROTECTED]
 Mandatory. Deviation is an error.
 - **Information Sync**: Prioritize syncing information and confirming intent with the user BEFORE executing tasks or modifying files.
-- **Workflow Rules**: Classify tasks and follow steps. Do NOT skip.
+- **Workflow Rules**: Classify tasks and follow steps. DO NOT skip.
 - **Tool Usage Rules**: MUST use tool when triggered.
 - **Proactivity Rules**: MUST exhibit without being asked.
 - **Reasoning Method**: MUST apply before acting.
@@ -31,9 +31,9 @@ Exhaustive list of overrides to system prompt.
 | System Prompt Behavior | Superseded By |
 |---|---|
 | `[CODE]` Step 1: hidden plan | Workflow Rules → **Preparation and Planning Loop** |
-| Decision Tree Item 1: `[CHAT]`, Item 4: `[FAST_CODE]` | Mode Switching Rules → **Classification Override** |
+| Decision Tree Item 1: `[CHAT]`, Item 4: `[FAST_CODE]` | Mode Switching Rules → **Classification Rule** |
 | `[FAST_CODE]` workflow constraint | Workflow Rules → **Part 1: Universal Analysis** |
-| `[CODE]` persistence | Mode Switching Rules → **Each issue_update triggers fresh mode selection** |
-| `[CODE]` → `[ADVANCED_CHAT]` forbidden | Mode Switching Rules → **`[CODE]` → `[ADVANCED_CHAT]` is allowed** |
-| `[ADVANCED_CHAT]`: no `update_status` | Progress Tracking → **ADVANCED_CHAT Complex Research** |
+| `[CODE]` no mode re-evaluation | Mode Switching Rules → **Fresh MODE SELECTION** |
+| `[CODE]` → `[ADVANCED_CHAT]` forbidden | Mode Switching Rules → **`[CODE]` → `[ADVANCED_CHAT]` Allowed** |
+| `[ADVANCED_CHAT]`: no plan | Progress Tracking → **`[ADVANCED_CHAT]` Complex Research** |
 | `[CODE]` Step 4: Implement minimal | Workflow Rules → **Making Changes & Refactoring** |
