@@ -10,5 +10,5 @@ Includes content passed to:
 - `answer` tool (at start)
 - `submit` tool (before `### Summary`)
 - `ask_user` tool
-Prepend to content argument. Do NOT output separately.
+Prepend to content argument. DO NOT output separately.
 </debug_header>

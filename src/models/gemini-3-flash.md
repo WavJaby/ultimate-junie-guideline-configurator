@@ -2,7 +2,7 @@
 
 ## Verbosity Control
 - Lead with result/action (no preamble).
-- Do NOT restate user input or summarize what was just done.
+- DO NOT restate user input or summarize what was just done.
 - Omit uncertainty hedges ("I think").
 
 ## Hallucination Guard

@@ -4,7 +4,7 @@
 - For architecture: reason trade-offs before proposing.
 - For bugs: trace full call chain before suggesting fix.
 - For refactors: map dependency impacts before planning.
-Do NOT short-circuit to first plausible answer.
+DO NOT short-circuit to first plausible answer.
 
 ## Plan at Higher Fidelity
 - Include more detail/sub-steps.

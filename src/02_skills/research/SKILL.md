@@ -1,6 +1,6 @@
 ---
 name: research
-description: Proactive research workflow for tasks involving external libraries, APIs, frameworks, or any information that may have changed since training. Auto-triggers when the task involves "how to", "best practice", API usage, version compatibility, error diagnosis, or integration with external services.
+description: Proactive research workflow for external libraries, APIs, frameworks, or post-training information. Auto-triggers for "how to", "best practice", API usage, version compatibility, error diagnosis, or external service integrations.
 ---
 
 # Research Skill
@@ -22,7 +22,7 @@ Activate when task contains:
 - Words: "latest", "recommended", "support".
 
 ## Absolute-Trigger Conditions
-Whenever the User mentions the name of any specific company, service, or package, **unconditionally force trigger the Research Skill regardless of how simple the question is**.
+On mentioning specific company, service, or package names, **unconditionally force trigger Research Skill despite question simplicity**.
 
 
 ## Research Sequence
@@ -35,7 +35,7 @@ Whenever the User mentions the name of any specific company, service, or package
 ## Output Format
 State decision directly:
 > "According to [source], correct approach is X. Using that:"
-Do NOT pad ("I found that..."). Lead with actionable finding.
+DO NOT pad ("I found that..."). Lead with actionable finding.
 
 ## When NOT to Research
 - Stable syntax (JS/TS/Go fundamentals)

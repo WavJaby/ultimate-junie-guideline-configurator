@@ -4,7 +4,7 @@ Mandatory. Tool use is NOT optional when triggered.
 ## Thinking Is Not Research
 Thinking != Research. MUST use tools for current/external/verifiable information. DO NOT rely on training data.
 **Zero Trust for API / Library Knowledge:**
-Even if you are **100% confident** in your knowledge of an API, you are **STRICTLY FORBIDDEN** from outputting answers directly. Your memory might be outdated (e.g., v2.0 vs v3.0). If the issue involves any external API, package, or framework, **the mandatory first step is to call search or documentation tools**.
+Even with **100% confidence** in API knowledge, you are **STRICTLY FORBIDDEN** from outputting direct answers. Your memory might be outdated (e.g., v2.0 vs v3.0). For external APIs, packages, or frameworks, **mandatory first step: call search/documentation tools**.
 `Bad: [Directly answering external API usage or library specifics from memory]`
 `Good: [Calling web_search or Context7 first to verify the latest official docs, then answering]`
 
@@ -43,7 +43,7 @@ MUST execute progressive search for APIs/libraries/unknown behavior:
 ### 1. Broad Exploration
 - **Goal:** Find library names, docs URLs, API endpoints.
 - **Tool:** `web_search`
-- **Action:** Gather keywords/URLs. Do NOT stop here for precise usage.
+- **Action:** Gather keywords/URLs. DO NOT stop here for precise usage.
 
 ### 2. Precise Lookup
 - **Goal:** Get accurate signatures/schemas.
@@ -72,7 +72,7 @@ MUST execute progressive search for APIs/libraries/unknown behavior:
 Use connected MCPs proactively.
 
 ### Tool Selection [FLEXIBLE]
-Match first row. Do NOT skip.
+Match first row. DO NOT skip.
 
 | Condition | Tool |
 |---|---|
